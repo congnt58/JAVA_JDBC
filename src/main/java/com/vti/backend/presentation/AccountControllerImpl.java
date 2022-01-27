@@ -34,4 +34,10 @@ public class AccountControllerImpl implements IAccountController {
 		return accService.createAccount(account);
 	}
 
+
+	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException {
+		return accService.updateAccount(oldId, newUserName, newEmail);
+	}
+
+
 }

@@ -50,4 +50,30 @@ public class AccountDaoImpl implements AccountDao {
 		return prdStatement.executeUpdate();
 	}
 
+	public int updateAccount(Account account) throws SQLException {
+		
+		String query = "Update Account SET `UserName` = ?, `Email` = ? WHERE `AccountID` = ?";
+		
+		PreparedStatement prdStatement = JDBCUtil.getIntance().getPreparedStatement(query);
+		
+		prdStatement.setString(1, account.getUserName());
+		prdStatement.setString(2, account.getEmail());
+		prdStatement.setInt(3, account.getId());
+			
+		return prdStatement.executeUpdate();
+	}
+
+	public Account findAccByID(int oldId) throws SQLException {
+		String query= "Select * From Account WHERE AccountID = ?";
+		PreparedStatement prdStatement = JDBCUtil.getIntance().getPreparedStatement(query);
+		prdStatement.setInt(1, oldId);
+		
+		ResultSet resultSet = prdStatement.executeQuery();
+		
+		if (resultSet.next()) {
+			return new Account(resultSet);
+		}
+		return null;
+	}
+
 }

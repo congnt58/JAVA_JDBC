@@ -33,4 +33,27 @@ public class AccountServiceImpl implements IAccountService {
 		return false;
 	}
 
+	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException {
+		
+		Account account = accountDao.findAccByID(oldId);
+		if (account == null) {
+			return "Không tìm thấy account có id = " + oldId;
+		}
+		
+		if (newUserName != null) {
+			account.setUserName(newUserName);
+		}
+		if (newEmail != null) {
+			account.setEmail(newEmail);
+		}
+		
+		int count = accountDao.updateAccount(account);
+		
+		if (count > 0) {
+			return "Update thành công";
+		}else {
+			return "Update thất bại";
+		}
+	}
+
 }

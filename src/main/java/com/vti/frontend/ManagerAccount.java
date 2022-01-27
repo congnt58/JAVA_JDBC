@@ -43,7 +43,7 @@ public class ManagerAccount {
 				createAccount();
 				break;
 			case 5:
-				System.out.println("-> Chức năng chưa làm");
+				updateAccount();
 				break;
 			case 6:
 				System.out.println("Thoát chương trình.");
@@ -54,6 +54,42 @@ public class ManagerAccount {
 			}
 		} while (selected != 6);
 
+	}
+
+	private void updateAccount() {
+		System.out.println("------ 5. Update tai khoan --------");
+		System.out.print("Nhập id tk cần sửa: ");
+		int oldId = ScannerUtil.scInt();
+		String newUserName = null;
+		String newEmail = null;
+		String message = null;
+
+		System.out.println("Chọn 1 -> sửa userName, 2-> sửa Email, 3-> sửa email và userName:");
+		switch (ScannerUtil.scInt()) {
+		case 1:
+			System.out.print("Nhập UserName mới: ");
+			newUserName = ScannerUtil.scString();
+			break;
+		case 2:
+			System.out.println("Nhập Email mới: ");
+			newEmail = ScannerUtil.scString();
+			break;
+		case 3:
+			System.out.print("Nhập UserName mới: ");
+			newUserName = ScannerUtil.scString();
+			System.out.println("Nhập Email mới: ");
+			newEmail = ScannerUtil.scString();
+			break;
+		default:
+			System.out.println("chọn sai chức năng.");
+			return;
+		}
+		try {
+			message = accControler.updateAccount(oldId, newUserName, newEmail);
+		} catch (SQLException e) {
+			message = "Lỗi update => " + e.getMessage();
+		}
+		System.out.println(message);
 	}
 
 	private void createAccount() {

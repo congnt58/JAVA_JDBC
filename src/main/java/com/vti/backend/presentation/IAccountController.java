@@ -11,4 +11,6 @@ public interface IAccountController {
 	public Account findAccountByUserName(String uName) throws SQLException;
 
 	public boolean createAccount(Account account) throws SQLException;
+
+	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException;
 }

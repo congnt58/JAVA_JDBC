@@ -13,5 +13,9 @@ public interface AccountDao {
 
 	public int createAccount(Account account) throws SQLException;
 
+	public int updateAccount(Account account) throws SQLException;
+
+	public Account findAccByID(int oldId) throws SQLException;
+
 
 }

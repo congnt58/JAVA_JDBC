@@ -14,14 +14,13 @@ public class ManagerAccount {
 
 	public ManagerAccount() {
 		accControler = new AccountControllerImpl();
-		System.out.println("----- chương trình QL Tài khoản ----- ");
 		menu();
 	}
 
 	private void menu() {
 		int selected = 0;
 		do {
-			System.out.println("=====>Chọn chức năng<=====");
+			System.out.println("=====>Quản lý tài khoản<=====");
 			System.out.println("1: In danh sách tk.");
 			System.out.println("2: Tìm tk theo UserName");
 			System.out.println("3: Xóa tk.");

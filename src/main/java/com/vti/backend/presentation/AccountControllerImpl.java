@@ -6,6 +6,7 @@ import java.util.List;
 import com.vti.backend.business.AccountServiceImpl;
 import com.vti.backend.business.IAccountService;
 import com.vti.entity.Account;
+import com.vti.exc.AccountNotFoundException;
 
 public class AccountControllerImpl implements IAccountController {
 
@@ -37,6 +38,14 @@ public class AccountControllerImpl implements IAccountController {
 
 	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException {
 		return accService.updateAccount(oldId, newUserName, newEmail);
+	}
+
+
+	public boolean deleteAcc(String userName) throws Exception {
+		if (userName == null || userName == "") {
+			throw new Exception("Không được để trống username");
+		}
+		return accService.deleteAccount(userName);
 	}
 
 

@@ -19,6 +19,7 @@ public class JDBCUtil {
 	private JDBCUtil() {
 
 	}
+	
 	private static JDBCUtil intance;
 	private Connection connection;
 

@@ -17,5 +17,7 @@ public interface AccountDao {
 
 	public Account findAccByID(int oldId) throws SQLException;
 
+	public int deleteAccount(String userName) throws SQLException;
+
 
 }

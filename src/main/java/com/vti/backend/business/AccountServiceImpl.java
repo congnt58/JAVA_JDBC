@@ -6,6 +6,7 @@ import java.util.List;
 import com.vti.backend.datalayer.AccountDao;
 import com.vti.backend.datalayer.AccountDaoImpl;
 import com.vti.entity.Account;
+import com.vti.exc.AccountNotFoundException;
 
 public class AccountServiceImpl implements IAccountService {
 
@@ -64,6 +65,18 @@ public class AccountServiceImpl implements IAccountService {
 		} else {
 			return "Update thất bại";
 		}
+	}
+	
+	public boolean deleteAccount(String userName) throws SQLException, AccountNotFoundException  {
+		if (findAccByUserName(userName) == null) {
+			throw new AccountNotFoundException("Không thể xóa tài khoản không có trong danh sách");
+		}
+		
+		int a = accountDao.deleteAccount(userName);
+		if (a > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

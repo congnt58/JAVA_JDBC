@@ -1,12 +1,12 @@
 package com.vti.frontend;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vti.backend.presentation.AccountControllerImpl;
 import com.vti.backend.presentation.IAccountController;
 import com.vti.entity.Account;
+import com.vti.exc.AccountNotFoundException;
 import com.vti.utils.ScannerUtil;
 
 public class ManagerAccount {
@@ -36,7 +36,7 @@ public class ManagerAccount {
 				findAccount();
 				break;
 			case 3:
-				System.out.println("-> Chức năng chưa làm");
+				deleteAcc();
 				break;
 			case 4:
 				createAccount();
@@ -112,6 +112,7 @@ public class ManagerAccount {
 		String uName = ScannerUtil.scString();
 
 		Account account = null;
+
 		try {
 			account = accControler.findAccountByUserName(uName);
 		} catch (SQLException e) {
@@ -127,18 +128,21 @@ public class ManagerAccount {
 
 	/**
 	 * Phương thức in danh sách Account
+	 * 
+	 * @throws SQLException
 	 */
 	private void printListAccount() {
 		System.out.println(" ----------- 1. In Danh sách tài khoản -----------");
 		System.out.println();
-		List<Account> listAcc = new ArrayList<Account>();
+		List<Account> listAcc = null;
 		try {
-			listAcc.addAll(accControler.getAllAccount());
+			listAcc = accControler.getAllAccount();
 		} catch (SQLException e) {
 			System.err.println("Xảy ra lỗi => " + e.getMessage());
+			return;
 		}
 
-		if (listAcc.isEmpty()) {
+		if (listAcc == null || listAcc.isEmpty()) {
 			System.out.println("Danh sách rỗng");
 		} else {
 			System.out.println(String.format(" %3s | %-30s| %-10s", "ID", "Email", "UserName"));
@@ -149,4 +153,29 @@ public class ManagerAccount {
 		}
 		System.out.println();
 	}
+
+	private void deleteAcc() {
+		// xoa account => nhap username hoac nhap id
+		System.out.printf("Nhap username can xoa: ");
+		String userName = ScannerUtil.scString();
+
+		// xoa duoc => true , khong xóa đc trả về false
+		boolean accDeleted;
+		try {
+			accDeleted = accControler.deleteAcc(userName);
+			if (accDeleted) {
+				System.out.println("Xóa thành công.");
+			} else {
+				System.out.println("Xóa thất bại.");
+			}
+		} catch (AccountNotFoundException e) {
+			System.err.println("Lỗi xóa account : " + e.getMessage());
+		} catch (SQLException e) {
+			System.err.println("Lỗi xóa account : " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Lỗi xóa account : " + e.getMessage());
+		}
+
+	}
+
 }

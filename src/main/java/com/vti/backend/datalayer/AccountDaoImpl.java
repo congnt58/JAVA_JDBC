@@ -75,7 +75,7 @@ public class AccountDaoImpl implements AccountDao {
 		}
 		return null;
 	}
-	
+
 	public int deleteAccount(String userName) throws SQLException {
 		String query = "DELETE FROM Account WHERE `UserName` = ?";
 

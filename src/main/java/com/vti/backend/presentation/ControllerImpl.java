@@ -3,23 +3,23 @@ package com.vti.backend.presentation;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.vti.backend.business.AccountServiceImpl;
-import com.vti.backend.business.IAccountService;
+import com.vti.backend.business.ServiceImpl;
+import com.vti.backend.business.IService;
 import com.vti.entity.Account;
 import com.vti.exc.AccountNotFoundException;
 
-public class AccountControllerImpl implements IAccountController {
+public class ControllerImpl implements IController {
 
-	private IAccountService accService;
+	private IService service;
 	
 	
-	public AccountControllerImpl() {
-		accService = new AccountServiceImpl();
+	public ControllerImpl() {
+		service = new ServiceImpl();
 	}
 	
 	
 	public List<Account> getAllAccount() throws SQLException {
-		return accService.getAllAccount();
+		return service.getAllAccount();
 	}
 
 
@@ -27,17 +27,17 @@ public class AccountControllerImpl implements IAccountController {
 		if (uName.isBlank() || uName.isEmpty()) {
 			return null;
 		}
-		return accService.findAccByUserName(uName);
+		return service.findAccByUserName(uName);
 	}
 
 
 	public boolean createAccount(Account account) throws SQLException {
-		return accService.createAccount(account);
+		return service.createAccount(account);
 	}
 
 
 	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException {
-		return accService.updateAccount(oldId, newUserName, newEmail);
+		return service.updateAccount(oldId, newUserName, newEmail);
 	}
 
 
@@ -45,7 +45,7 @@ public class AccountControllerImpl implements IAccountController {
 		if (userName == null || userName == "") {
 			throw new Exception("Không được để trống username");
 		}
-		return accService.deleteAccount(userName);
+		return service.deleteAccount(userName);
 	}
 
 

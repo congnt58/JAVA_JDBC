@@ -1,4 +1,4 @@
-package com.vti.backend.business;
+package com.vti.backend.presentation;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 import com.vti.entity.Account;
 import com.vti.exc.AccountNotFoundException;
 
-public interface IAccountService {
+public interface IController {
 	public List<Account> getAllAccount() throws SQLException;
 
-	public Account findAccByUserName(String uName) throws SQLException;
+	public Account findAccountByUserName(String uName) throws SQLException;
 
 	public boolean createAccount(Account account) throws SQLException;
 
 	public String updateAccount(int oldId, String newUserName, String newEmail) throws SQLException;
 
-	public boolean deleteAccount(String userName) throws SQLException, AccountNotFoundException;
+	public boolean deleteAcc(String userName) throws Exception;
 }

@@ -5,15 +5,22 @@ import java.util.List;
 
 import com.vti.backend.datalayer.AccountDao;
 import com.vti.backend.datalayer.AccountDaoImpl;
+import com.vti.backend.datalayer.DepartmentDao;
+import com.vti.backend.datalayer.DepartmentDaoImpl;
 import com.vti.entity.Account;
+import com.vti.entity.Department;
 import com.vti.exc.AccountNotFoundException;
 
-public class AccountServiceImpl implements IAccountService {
+
+
+public class ServiceImpl implements IService {
 
 	private AccountDao accountDao;
+	private DepartmentDao departmentDao;
 
-	public AccountServiceImpl() {
+	public ServiceImpl() {
 		accountDao = new AccountDaoImpl();
+		departmentDao = new DepartmentDaoImpl();
 	}
 
 	public List<Account> getAllAccount() throws SQLException {
@@ -44,11 +51,7 @@ public class AccountServiceImpl implements IAccountService {
 		}
 
 		if (newUserName != null) {
-//			if (newUserName.matches(USERNAME_PATTERN)) {
 			account.setUserName(newUserName);
-//			}else {
-//				return "UserName sai định dạng => vti_*********";
-//			}	
 		}
 		if (newEmail != null) {
 			if (newEmail.matches(EMAIL_PATTERN)) {
@@ -77,6 +80,10 @@ public class AccountServiceImpl implements IAccountService {
 			return true;
 		}
 		return false;
+	}
+
+	public List<Department> getAllDepartment() throws SQLException {
+		return departmentDao.getAllDepartment();
 	}
 
 }

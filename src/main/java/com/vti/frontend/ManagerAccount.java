@@ -3,17 +3,17 @@ package com.vti.frontend;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.vti.backend.presentation.AccountControllerImpl;
-import com.vti.backend.presentation.IAccountController;
+import com.vti.backend.presentation.ControllerImpl;
+import com.vti.backend.presentation.IController;
 import com.vti.entity.Account;
 import com.vti.exc.AccountNotFoundException;
 import com.vti.utils.ScannerUtil;
 
 public class ManagerAccount {
-	private IAccountController accControler;
+	private IController controller;
 
 	public ManagerAccount() {
-		accControler = new AccountControllerImpl();
+		controller = new ControllerImpl();
 		menu();
 	}
 
@@ -84,7 +84,7 @@ public class ManagerAccount {
 			return;
 		}
 		try {
-			message = accControler.updateAccount(oldId, newUserName, newEmail);
+			message = controller.updateAccount(oldId, newUserName, newEmail);
 		} catch (SQLException e) {
 			message = "Lỗi update => " + e.getMessage();
 		}
@@ -96,7 +96,7 @@ public class ManagerAccount {
 		Account account = new Account();
 		account.scanInfo();
 		try {
-			if (accControler.createAccount(account)) {
+			if (controller.createAccount(account)) {
 				System.out.println("Tạo tk thành công.");
 			} else {
 				System.out.println("Tạo tk thất bại.");
@@ -114,7 +114,7 @@ public class ManagerAccount {
 		Account account = null;
 
 		try {
-			account = accControler.findAccountByUserName(uName);
+			account = controller.findAccountByUserName(uName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +136,7 @@ public class ManagerAccount {
 		System.out.println();
 		List<Account> listAcc = null;
 		try {
-			listAcc = accControler.getAllAccount();
+			listAcc = controller.getAllAccount();
 		} catch (SQLException e) {
 			System.err.println("Xảy ra lỗi => " + e.getMessage());
 			return;
@@ -162,20 +162,19 @@ public class ManagerAccount {
 		// xoa duoc => true , khong xóa đc trả về false
 		boolean accDeleted;
 		try {
-			accDeleted = accControler.deleteAcc(userName);
+			accDeleted = controller.deleteAcc(userName);
 			if (accDeleted) {
 				System.out.println("Xóa thành công.");
 			} else {
 				System.out.println("Xóa thất bại.");
 			}
 		} catch (AccountNotFoundException e) {
-			System.err.println("Lỗi xóa account : " + e.getMessage());
+			System.err.println("Lỗi không tìm thấy account : " + userName);
 		} catch (SQLException e) {
 			System.err.println("Lỗi xóa account : " + e.getMessage());
 		} catch (Exception e) {
 			System.err.println("Lỗi xóa account : " + e.getMessage());
 		}
-
 	}
 
 }

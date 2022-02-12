@@ -1,8 +1,8 @@
 package com.vti.frontend;
 
-import java.sql.SQLException;
+import com.vti.entity.Account;
 
-public class App {
+public class App extends Account {
 	public static void main(String[] args) {
 		ManagerAccount managerAccount = new ManagerAccount();
 	}
